@@ -1,0 +1,74 @@
+<div class="detailBox">
+<H1>Well come to <%=@user.name%> 's home</H1>
+  <%if(current_user!=nil && current_user.id != @user.id ) %>
+    <%= render 'users/follow_form' %>
+  <%end%>
+  <%= link_to "Following(#{@user.following.count})",following_user_path(@user) %>
+  <%= link_to "followers(#{@user.followers.count})",followers_user_path(@user) %>
+</div>
+
+
+<%if(current_user!=nil && current_user.id == @user.id) %>
+  <%= render 'entries/new' %>
+<%end%>
+
+<% @entries.order('created_at DESC').each do |entry| %>
+<div class="detailBox">
+    <div class="titleBox">
+      <label>
+      <%=link_to "Postor:#{entry.user.name}" %> 
+      Title: <%= entry.title %>
+      </label>
+      <button type="button" class="close" aria-hidden="true">&times;
+      </button>
+    </div>
+    <div class="commentBox">
+        <p class="taskDescription"><%= entry.body %></p>
+        <p>
+          <span class="date sub-text">on <%= entry.updated_at %></span>
+        </p>
+        <span class="taskDescription">
+          <%#= link_to 'Show', entry_path(entry) %>
+        </span>
+        <%if(current_user!=nil && current_user.id == @user.id )%>
+        <span class="taskDescription">
+        <%= link_to 'Edit', edit_entry_path(entry) %>
+        </span>
+        <span class="taskDescription">
+          <%= link_to 'Destroy', entry_path(entry),
+              method: :delete,
+              data: { confirm: 'Drop this entry?' } %>
+        </span>
+        <%end%>
+    </div>
+    <div class="actionBox">
+      <%
+        @collapseOne = entry.id
+      %>
+      <a data-toggle="collapse" data-parent="#accordion" 
+      href='<%='#'%><%=@collapseOne%>'
+        aria-expanded="true" aria-controls="<%=@collapseOne%>" 
+        class="collapsed">
+        Comments
+      </a>
+        <ul class="commentList">
+        <div class="bs-example" data-example-id="collapse-accordion">
+  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="panel panel-default">
+      <div id="<%=@collapseOne%>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false" style="height: 0px;">
+      <%= render entry.comments %>
+      </div>
+    </div>
+  </div>
+</div>
+        
+        </ul>
+        <%@entry = entry%>
+        <%= render 'comments/form' %>
+    </div>
+</div>
+<%end%>
+
+
+
+

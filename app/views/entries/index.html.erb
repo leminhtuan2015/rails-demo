@@ -1,0 +1,27 @@
+<%= link_to 'Home', home_index_path %>
+<hr>
+<%= link_to 'New Post', new_entry_path %>
+<hr>
+<table>
+  <tr>
+    <th>From</th>
+    <th>Title</th>
+    <th>Body</th>
+    <th>Date</th>
+    <th>Action</th>
+  </tr>
+ 
+  <% @entries.each do |entry| %>
+    <tr>
+      <td><%= entry.user_id %></td>
+      <td><%= entry.title %></td>
+      <td><%= entry.body %></td>
+      <td><%= entry.updated_at %></td>
+      <td><%= link_to 'Show', entry_path(entry) %></td>
+      <td><%= link_to 'Edit', edit_entry_path(entry) %></td>
+      <td><%= link_to 'Destroy', entry_path(entry),
+              method: :delete,
+              data: { confirm: 'Drop this entry?' } %></td>
+    </tr>
+  <% end %>
+</table>

@@ -1,0 +1,25 @@
+<div class="detailBox">
+<h1>All User</h1>
+<table class="table">
+      <caption>Users</caption>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Password</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <th scope="row"><%=user.id%></th>
+          <td><%= link_to user.name, user_path(user)%></td>
+          <td><%= user.email %></td>
+          <td><%= user.password %></td>
+        </tr>
+       <% end %> 
+      </tbody>
+    </table>
+</div>
+

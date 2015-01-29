@@ -1,0 +1,18 @@
+<div width="100%" class="bs-example bs-navbar-top-example" 
+     data-example-id="navbar-fixed-to-top">
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div width="100%" class="navbar-header">
+          <%=link_to 'New feed', home_index_path,:class => "navbar-brand" %>
+          <%= link_to 'Friend', users_path ,:class => "navbar-brand"%>
+          <%= link_to 'Sign up', new_user_path ,:class => "navbar-brand"%>
+          <%= link_to 'Sign out', logout_path, method: :delete,:class => "navbar-brand" %>
+          <%if (current_user== nil) %>
+          <%= link_to 'Sign in', login_path ,:class => "navbar-brand"%>
+          <%else%>
+          <%= link_to "Personal(#{current_user.name})", user_path(current_user),:class => "navbar-brand"%>
+          <%end%>
+        </div>
+      </div>
+    </nav>
+  </div>

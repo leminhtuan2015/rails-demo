@@ -1,0 +1,15 @@
+ <h2>Entry detail</h2>
+<p>
+  <strong>Title:</strong>
+  <%= @entry.title %>
+</p>
+ 
+<p>
+  <strong>Body:</strong>
+  <%= @entry.body %>
+</p>
+
+<hr>
+<%= render @entry.comments %>
+
+<%= render 'comments/form' %>

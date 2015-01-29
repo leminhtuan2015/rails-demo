@@ -1,0 +1,18 @@
+<%= form_for @entry, method: :patch do |f| %>
+  <p>
+    <%= f.label :title %><br>
+    <%= f.text_field :title, "value" => @entry.title%>
+  </p>
+ 
+  <p>
+    <%= f.label :body %><br>
+    <%= f.text_area :body, :value => @entry.body%>
+  </p>
+ 
+  <p>
+    <%= f.submit %>
+  </p>
+ 
+<% end %>
+ 
+<%= link_to 'Back', entries_path %>

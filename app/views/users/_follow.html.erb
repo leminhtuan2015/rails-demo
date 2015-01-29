@@ -1,0 +1,11 @@
+<p>
+<%= form_for(current_user.active_relationships.build) do |f| %>
+  <div>
+  <%= hidden_field_tag :followed_id, @user.id %>
+  </div>
+  <%= f.submit "Follow", class: "btn btn-primary" %>
+<% end %>
+</p>
+<!--
+former sends a POST request to the Relationships controller to create a relationship, while the latter sends a DELETE request to destroy a relationship
+-->

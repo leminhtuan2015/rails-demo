@@ -1,0 +1,60 @@
+<div class="detailBox">
+<h1>New feeds</h1>
+</div>
+<%if current_user != nil%>
+<script>
+  var socket;
+  socket = io.connect('http://localhost:1234');
+  socket.on(<%=current_user.id%>, function(data) {
+    location.reload();
+  });
+</script>
+<% @feeds.each do |entry| %>
+<div class="detailBox">
+    <div class="titleBox">
+      <label>
+      <%=link_to "Postor:#{entry.user.name}" %> 
+      Title: <%= entry.title %>
+      </label>
+      <button type="button" class="close" aria-hidden="true">&times;
+      </button>
+    </div>
+    <div class="commentBox">
+        <p class="taskDescription"><%= entry.body %></p>
+        <p>
+          <span class="date sub-text">on <%= entry.updated_at %></span>
+        </p>
+    </div>
+    <div class="actionBox">
+      <%
+        @collapseOne = entry.id
+      %>
+      <a data-toggle="collapse" data-parent="#accordion" 
+      href='<%='#'%><%=@collapseOne%>'
+        aria-expanded="true" aria-controls="<%=@collapseOne%>" 
+        class="collapsed">
+        Comments
+      </a>
+        <ul class="commentList">
+        <div class="bs-example" data-example-id="collapse-accordion">
+  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="panel panel-default">
+      <div id="<%=@collapseOne%>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false" style="height: 0px;">
+      <%= render entry.comments %>
+      </div>
+    </div>
+  </div>
+</div>
+        
+        </ul>
+        <%@entry = entry%>
+        <%= render 'comments/form' %>
+    </div>
+</div>
+<% end %>
+<%end%>
+
+
+
+
+

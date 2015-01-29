@@ -1,0 +1,33 @@
+  <div class="panel-body">
+      <li>
+    <div class="commenterImage">
+      <img src="http://lorempixel.com/50/50/people/6" />
+    </div>
+    <div width="300px">
+    <%user = get_commentor(comment.user_id)%>
+      <%=link_to "Commentor:#{user.name}", user_path(user)%>
+    </div>
+    <hr>
+    <div class="commentText">
+        <p class="">
+        <%= comment.body %>
+        </p> 
+        <span class="date sub-text">
+          <%= comment.updated_at %>
+        </span>
+        <span>
+          <%if (current_user != nil &&
+               (current_user.id == comment.user_id ||
+                current_user.id == comment.entry.user_id))
+          %>
+            <%= link_to 'Delete', [comment.entry, comment],
+               method: :delete,
+               data: { confirm: 'Are you sure?',
+               :class=>"date sub-text" } %>
+       
+          <%end%> 
+        </span>
+    </div>
+  </li>
+</div>
+
